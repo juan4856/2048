@@ -8,7 +8,7 @@ def main():
             print("Felicidades! Sos lo mas")
             return
         if logica.juego_perdido(juego):
-            print("Lola, volvé a intentar")
+            print("Perdiste! Volve a intentar!")
             return
         dir = logica.pedir_direccion(juego)
         nuevo_juego = logica.actualizar_juego(juego, dir)
