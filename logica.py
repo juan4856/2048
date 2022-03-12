@@ -12,19 +12,19 @@ POSICION_ABAJO = "s"
 
 
 def inicializar_juego():
-	#Crea una matriz, que en este caso es 4x4
+	""""Initialize the game, in this case a matrix 4x4"""
 	matriz=[]
 	for i in range(LARGO_MATRIZ):
 		matriz.append([CASILLERO_VACIO] * LARGO_MATRIZ)
 	
-	# Busco una fila random y una columna random para agregar un 2
+	# insert a 2 in an empty space
 	matriz = insertar_nuevo_random(matriz)
 	return matriz
 
 
 
 def insertar_nuevo_random(matriz):
-    #agrega un 2 en alguna posición random que este vacia
+    """Search and empty place and insert a 2"""
     nueva_matriz = matriz[:]
     fila_random = random.randint(0,LARGO_MATRIZ - 1)
     col_random = random.randint(0,LARGO_MATRIZ - 1)
@@ -38,7 +38,7 @@ def insertar_nuevo_random(matriz):
 
 
 def mostrar_juego(matriz):
-	#imprime el juego
+	"""Print the game in the"""
 	for i in range(LARGO_MATRIZ):
 		for j in range(LARGO_MATRIZ):
 			print(matriz[i][j], end = "  |   ")
@@ -49,7 +49,7 @@ def mostrar_juego(matriz):
 
 
 def juego_ganado(matriz):
-	#Si algun casillero tiene un numero que es 2048, se gana el juego
+    """If any place has a 2048, the game finish"""
     for  i in range(LARGO_MATRIZ):
         for j in range(LARGO_MATRIZ):
             if matriz[i][j] == NUMERO_GANADOR:
@@ -61,25 +61,25 @@ def juego_ganado(matriz):
 
 
 def juego_perdido(matriz):
-    #Si todos los casilleros tienen un numero entonces el juego se pierde
-	for i in range(LARGO_MATRIZ):
-		for j in range(LARGO_MATRIZ):
-			if matriz[i][j] == CASILLERO_VACIO:
-				return False
-
-	return True
+    """If there is no empty place, the game is lost"""
+    for i in range(LARGO_MATRIZ):
+        for j in range(LARGO_MATRIZ):
+            if matriz[i][j] == CASILLERO_VACIO:
+                return False
+    return True
 		
 
 
 def ingreso_posicion():
-	return input("""ingrese una dirección para moverse 
+    """User insert a direction"""
+
+    return input("""ingrese una dirección para moverse 
 w: Mover hacia arriba
 s: Mover hacia abajo
 a: Mover hacia la izquierda
 d: Mover hacia la derecha:  """)
 
 def pedir_direccion(dir):
-    #Pide una dirección hasta que se ingrese una dirección valida.
 	dir = ingreso_posicion()
 	while dir not in "aAwWsSdD" or dir == "" :
 		print(dir, "No es un valor valido")
@@ -91,7 +91,6 @@ def pedir_direccion(dir):
 
 
 def juntar_numeros(matriz):
-    #Junta los numeros y agrega casilleros vacios cuando se mueve un numero
     matriz_nueva = []
 
     for i in range(LARGO_MATRIZ):
@@ -107,7 +106,7 @@ def juntar_numeros(matriz):
 
     
 def sumar(matriz):
-    #Multiplica por 2 el valor que haya en el casillero, si es que hay dos numeros iguales consecutivos. Dependiendo el movimiento que se haga
+    """Does the sum of the numbers when necessary"""
     for i in range(LARGO_MATRIZ):
         for j in range(LARGO_MATRIZ - 1):
             if matriz[i][j] == matriz[i][j + 1] and matriz[i][j] != CASILLERO_VACIO :
@@ -117,7 +116,7 @@ def sumar(matriz):
     return matriz
 
 def espejar(matriz):
-    #Espeja la matriz, todo lo que esta a la izquierda lo pone en la derecha
+    """Mirror the matrix, everything is at left goes to the right"""
     matriz_nueva =[]
     for i in range(LARGO_MATRIZ):
         matriz_nueva.append([])
@@ -130,7 +129,7 @@ def espejar(matriz):
 
 
 def transpuesta(matriz):
-    #Hace la matriz traspuesta
+    """Transposes the matrix"""
     matriz_nueva = []
     for i in range(LARGO_MATRIZ):
         matriz_nueva.append([])
@@ -143,7 +142,7 @@ def transpuesta(matriz):
 
 
 def mover_izquierda(matriz):
-    #Movimiento hacia la izquierda cuando se presiona "a"
+    """Movement when the users press 'a'"""
 
     matriz_nueva = juntar_numeros(matriz)
     matriz_nueva = sumar(matriz_nueva)
@@ -152,7 +151,7 @@ def mover_izquierda(matriz):
 
 
 def mover_derecha(matriz):
-    #Movimiento hacia la derecha cuando se presiona "d"
+    """Movement when the users press 'd'"""
 
     matriz_nueva = espejar(matriz)
     matriz_nueva = mover_izquierda(matriz_nueva)
@@ -161,7 +160,7 @@ def mover_derecha(matriz):
 
 
 def mover_arriba(matriz):
-    #Movimiento hacia arriba cuando se presiona "w"
+    """Movement when the users press 'w'"""
 
     matriz_nueva = transpuesta(matriz)
     matriz_nueva = mover_izquierda(matriz_nueva)
@@ -170,7 +169,7 @@ def mover_arriba(matriz):
 
 
 def mover_abajo(matriz):
-    #Movimiento hacia abajo cuando se presiona "s"
+    """Movement when the users press 's'"""
     matriz_nueva = transpuesta(matriz)
     matriz_nueva = mover_derecha(matriz_nueva)
     matriz_nueva = transpuesta(matriz_nueva)

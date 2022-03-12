@@ -1,4 +1,4 @@
-#Juego 2048
+#2048 Game
 
-Descargar y jugar desde el archivo main.py. 
-Los controles estan indicados en el juego.
+Download and play from main.py file. 
+The controls are indicated in the game.
